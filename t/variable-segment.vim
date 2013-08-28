@@ -140,6 +140,13 @@ describe 'iv'
         Expect getline(1) == 'footHill bazQuux'
     end
 
+    it 'supports counts'
+        put! = 'foo_bar_baz_quux_spam'
+        normal! 6|
+        normal c3iveggs
+        Expect getline(1) == 'foo_eggs_spam'
+    end
+
     it 'works in the degenerate case'
         put! = 'thing another'
         normal 2|
@@ -281,6 +288,13 @@ describe 'av'
         normal! 10|
         normal dav
         Expect getline(1) == 'fooBar quux'
+    end
+
+    it 'supports counts'
+        put! = 'foo_bar_baz_quux_spam'
+        normal! 6|
+        normal d3av
+        Expect getline(1) == 'foo_spam'
     end
 
     it 'does not cross right camel boundaries'
