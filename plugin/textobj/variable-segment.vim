@@ -1,6 +1,6 @@
 " textobj-variable-segment: a text object for segments of variable names
 " Author: Julian Berman
-" Version: 0.2.1
+" Version: 0.3.0
 
 if exists('g:loaded_textobj_variable_segment')
     finish
@@ -20,7 +20,16 @@ function! s:select(object_type, right_boundary)
     call search(left_boundary, 'bce')
     let start_position = getpos('.')
 
+    call search('\>', 'c')
+    let word_end = getpos('.')
+    call setpos('.', start_position)
+
     call search(a:right_boundary, 'c')
+    for _ in range(v:count1 - 1)
+        if getpos('.') != word_end
+            call search(a:right_boundary)
+        endif
+    endfor
     let end_position = getpos('.')
 
     return ['v', start_position, end_position]
