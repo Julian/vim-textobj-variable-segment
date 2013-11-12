@@ -16,7 +16,7 @@ call textobj#user#plugin('variable', {
 
 
 function! s:select(object_type, right_boundary)
-    let left_boundary = join(['_\i', '\l\u', '\<'], '\|')
+    let left_boundary = join(['_\i', '\l\u', '\a\d', '\d\a', '\<'], '\|')
     call search(left_boundary, 'bce')
     let start_position = getpos('.')
 
@@ -37,7 +37,7 @@ endfunction
 
 
 function! s:select_a()
-    let right_boundary = join(['_', '\l\u', '\i\>'], '\|')
+    let right_boundary = join(['_', '\l\u', '\a\d', '\d\a', '\i\>'], '\|')
     let [type, start_position, end_position] = s:select('a', right_boundary)
     let [_, start_line, start_column, _] = start_position
 
@@ -64,7 +64,7 @@ endfunction
 
 
 function! s:select_i()
-    let right_boundary = join(['\i_', '\l\u', '\i\>'], '\|')
+    let right_boundary = join(['\i_', '\l\u', '\a\d', '\d\a', '\i\>'], '\|')
     return s:select('i', right_boundary)
 endfunction
 

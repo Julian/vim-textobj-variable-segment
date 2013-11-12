@@ -35,6 +35,27 @@ describe 'iv'
         Expect getline(1) == 'eggsOrCheese'
     end
 
+    it 'considers numbers to be capitals on the left boundary'
+        put! = '22Skidoo'
+        normal! 5|
+        normal civProblemsButThisTestAintOne
+        Expect getline(1) == '22ProblemsButThisTestAintOne'
+    end
+
+    it 'considers numbers to be capitals on the right boundary'
+        put! = 'Catch22'
+        normal! 2|
+        normal civSplit
+        Expect getline(1) == 'Split22'
+    end
+
+    it 'considers numbers to be a single group'
+        put! = 'ABC123DEF'
+        normal! 5|
+        normal civ456
+        Expect getline(1) == 'ABC456DEF'
+    end
+
     it 'ignores leading snake underscores'
         put! = '_spam_eggs'
         normal! 3|
@@ -183,6 +204,27 @@ describe 'av'
         normal! 6|
         normal dav
         Expect getline(1) == 'eggsCheese'
+    end
+
+    it 'considers numbers to be capitals on the left boundary'
+        put! = '22Skidoo'
+        normal! 5|
+        normal dav
+        Expect getline(1) == '22'
+    end
+
+    it 'considers numbers to be capitals on the right boundary'
+        put! = 'Catch22'
+        normal! 2|
+        normal dav
+        Expect getline(1) == '22'
+    end
+
+    it 'considers numbers to be a single group'
+        put! = 'ABC123DEF'
+        normal! 5|
+        normal dav
+        Expect getline(1) == 'ABCDEF'
     end
 
     it 'ignores leading snake underscores'
