@@ -1,6 +1,6 @@
 " textobj-variable-segment: a text object for segments of variable names
 " Author: Julian Berman
-" Version: 0.3.0
+" Version: 0.4.0
 
 if exists('g:loaded_textobj_variable_segment')
     finish
