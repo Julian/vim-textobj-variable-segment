@@ -56,6 +56,20 @@ describe 'iv'
         Expect getline(1) == 'ABC456DEF'
     end
 
+    it 'recognizes weird capital runs considering the last to be a new group'
+        put! = 'MyHTMLParser'
+        normal! 4|
+        normal civXML
+        Expect getline(1) == 'MyXMLParser'
+    end
+
+    it 'recognizes weird capital runs on the left'
+        put! = 'MyHTMLParser'
+        normal! 7|
+        normal civNightmare
+        Expect getline(1) == 'MyHTMLNightmare'
+    end
+
     it 'ignores leading snake underscores'
         put! = '_spam_eggs'
         normal! 3|
@@ -225,6 +239,20 @@ describe 'av'
         normal! 5|
         normal dav
         Expect getline(1) == 'ABCDEF'
+    end
+
+    it 'recognizes weird capital runs considering the last to be a new group'
+        put! = 'MyHTMLParser'
+        normal! 4|
+        normal dav
+        Expect getline(1) == 'MyParser'
+    end
+
+    it 'recognizes weird capital runs on the left'
+        put! = 'MyHTMLParser'
+        normal! 7|
+        normal dav
+        Expect getline(1) == 'MyHTML'
     end
 
     it 'ignores leading snake underscores'
