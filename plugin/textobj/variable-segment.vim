@@ -9,9 +9,9 @@ endif
 
 call textobj#user#plugin('variable', {
     \ '-': {
-    \     '*sfile*': expand('<sfile>:p'),
-    \     'select-a': 'av',  '*select-a-function*': 's:select_a',
-    \     'select-i': 'iv',  '*select-i-function*': 's:select_i',
+    \     'sfile': expand('<sfile>:p'),
+    \     'select-a': 'av',  'select-a-function': 's:select_a',
+    \     'select-i': 'iv',  'select-i-function': 's:select_i',
     \ }})
 
 
