@@ -16,7 +16,7 @@ call textobj#user#plugin('variable', {
 
 
 function! s:select(object_type, right_boundary)
-    let left_boundaries = ['_\i', '\l\u', '\u\u\ze\l', '\a\d', '\d\a', '\<']
+    let left_boundaries = ['_\i', '\<', '\l\u', '\u\u\ze\l', '\a\d', '\d\a']
     call search(join(left_boundaries, '\|'), 'bce')
     let start_position = getpos('.')
 

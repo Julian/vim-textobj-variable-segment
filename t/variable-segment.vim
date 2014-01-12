@@ -147,6 +147,13 @@ describe 'iv'
         Expect getline(1) == 'helloBeautiful'
     end
 
+    it 'selects single letter camel sections'
+        put! = 'aThingILike'
+        normal! 0
+        normal civthe
+        Expect getline(1) == 'theThingILike'
+    end
+
     it 'does not cross left snake boundaries'
         put! = 'foo_bar baz_quux'
         normal! 10|
@@ -337,6 +344,13 @@ describe 'av'
         normal! $
         normal dav
         Expect getline(1) == 'hello'
+    end
+
+    it 'selects single letter camel sections'
+        put! = 'aThingILike'
+        normal! 0
+        normal dav
+        Expect getline(1) == 'thingILike'
     end
 
     it 'does not cross left snake boundaries'
