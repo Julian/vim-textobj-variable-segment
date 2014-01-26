@@ -84,6 +84,13 @@ describe 'iv'
         Expect getline(1) == '_howManyCoolThings'
     end
 
+    it 'ignores multiple leading underscores'
+        put! = '__doCoolThings'
+        normal! 3|
+        normal civhowMany
+        Expect getline(1) == '__howManyCoolThings'
+    end
+
     it 'selects leading small camels and does not swap case'
         put! = 'greatQuuxThings'
         normal! 3|
@@ -274,6 +281,13 @@ describe 'av'
         normal! 5|
         normal dav
         Expect getline(1) == '_doThings'
+    end
+
+    it 'ignores multiple leading underscores'
+        put! = '__doCoolThings'
+        normal! 3|
+        normal dav
+        Expect getline(1) == '__coolThings'
     end
 
     it 'selects leading small camels and swaps case'
