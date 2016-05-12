@@ -1,5 +1,5 @@
 function! s:select(object_type, right_boundary)
-    let left_boundaries = ['_\+\i', '\<', '\l\u', '\u\u\ze\l', '\a\d', '\d\a']
+    let left_boundaries = ['_\+\i', '-\+\i', '\<', '\l\u', '\u\u\ze\l', '\a\d', '\d\a']
     call search(join(left_boundaries, '\|'), 'bce')
     let start_position = getpos('.')
 
@@ -19,7 +19,7 @@ function! s:select(object_type, right_boundary)
 endfunction
 
 function! s:select_a()
-    let right_boundaries = ['_', '\l\u', '\u\u\l', '\a\d', '\d\a', '\i\>']
+    let right_boundaries = ['_', '-', '\l\u', '\u\u\l', '\a\d', '\d\a', '\i\>']
     let right_boundary = join(right_boundaries, '\|')
     let [type, start_position, end_position] = s:select('a', right_boundary)
     let [_, start_line, start_column, _] = start_position
@@ -46,7 +46,7 @@ function! s:select_a()
 endfunction
 
 function! s:select_i()
-    let right_boundaries = ['\i_', '\l\u', '\u\u\l', '\a\d', '\d\a', '\i\>']
+    let right_boundaries = ['\i_', '\i-', '\l\u', '\u\u\l', '\a\d', '\d\a', '\i\>']
     return s:select('i', join(right_boundaries, '\|'))
 endfunction
 
