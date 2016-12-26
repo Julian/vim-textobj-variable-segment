@@ -3,10 +3,6 @@ runtime! plugin/textobj/variable-segment.vim
 
 
 describe 'iv'
-    after
-        bwipeout!
-    end
-
     it 'selects between underscores'
         put! = 'foo_bar_baz'
         normal! 6|
