@@ -57,4 +57,3 @@ endfunction
 function! textobj#variable_segment#select_a() abort
   return s:select_a()
 endfunction
-
