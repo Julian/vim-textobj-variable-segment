@@ -24,6 +24,27 @@ describe 'iv'
         Expect getline(1) == 'bag_of_beans'
     end
 
+    it 'selects between dashes'
+        put! = 'foo-bar-baz'
+        normal! 6|
+        normal civquux
+        Expect getline(1) == 'foo-quux-baz'
+    end
+
+    it 'selects leading sections with dashes'
+        put! = 'bag-of-spam'
+        normal! 2|
+        normal civjar
+        Expect getline(1) == 'jar-of-spam'
+    end
+
+    it 'selects ending sections with dashes'
+        put! = 'bag-of-spam'
+        normal! 9|
+        normal civbeans
+        Expect getline(1) == 'bag-of-beans'
+    end
+
     it 'selects between small camels'
         put! = 'eggsAndCheese'
         normal! 6|
@@ -221,6 +242,27 @@ describe 'av'
         normal! 9|
         normal dav
         Expect getline(1) == 'bag_of'
+    end
+
+    it 'selects between dashes'
+        put! = 'foo-bar-baz'
+        normal! 6|
+        normal dav
+        Expect getline(1) == 'foo-baz'
+    end
+
+    it 'selects leading sections with dashes'
+        put! = 'bag-of-spam'
+        normal! 2|
+        normal dav
+        Expect getline(1) == 'of-spam'
+    end
+
+    it 'selects ending sections with dashes'
+        put! = 'bag-of-spam'
+        normal! 9|
+        normal dav
+        Expect getline(1) == 'bag-of'
     end
 
     it 'selects between small camels'

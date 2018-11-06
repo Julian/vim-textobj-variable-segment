@@ -3,6 +3,9 @@ function! s:select(object_type, right_boundary)
     call search(join(left_boundaries, '\|'), 'bce')
     let start_position = getpos('.')
 
+    let orig_iskeyword=&l:iskeyword
+    setlocal iskeyword+=-
+
     call search('\>', 'c')
     let word_end = getpos('.')
     call setpos('.', start_position)
@@ -15,6 +18,8 @@ function! s:select(object_type, right_boundary)
     endfor
     let end_position = getpos('.')
 
+    let &l:iskeyword=orig_iskeyword
+
     return ['v', start_position, end_position]
 endfunction
 
@@ -26,7 +31,7 @@ function! s:select_a()
 
     call search('\i\>', 'c')
     if end_position == getpos('.') &&
-     \ getline(start_line)[start_column - 2] =~# '_'
+     \ getline(start_line)[start_column - 2] =~# '_\|-'
         let start_position[2] -= 1
     endif
 
