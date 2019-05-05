@@ -150,6 +150,13 @@ describe 'iv'
         Expect getline(1) == 'helloBeautiful'
     end
 
+    it 'selects single letter snake case sections'
+        put! = 'a_thing_I_like'
+        normal! 0
+        normal civthe
+        Expect getline(1) == 'the_thing_I_like'
+    end
+
     it 'selects single letter camel sections'
         put! = 'aThingILike'
         normal! 0
