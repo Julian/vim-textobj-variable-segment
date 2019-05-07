@@ -164,6 +164,20 @@ describe 'iv'
         Expect getline(1) == 'theThingILike'
     end
 
+    it 'selects segments after single letter snake case sections'
+        put! = 'a_thing_I_like'
+        normal! 2|
+        normal civtest
+        Expect getline(1) == 'a_test_I_like'
+    end
+
+    it 'selects segments after single letter camel sections'
+        put! = 'aThingILike'
+        normal! 1|
+        normal civtest
+        Expect getline(1) == 'aTestILike'
+    end
+
     it 'does not cross left snake boundaries'
         put! = 'foo_bar baz_quux'
         normal! 10|
