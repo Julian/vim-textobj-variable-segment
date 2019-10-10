@@ -1,16 +1,26 @@
-function! s:select(object_type, right_boundary)
-    let left_boundaries = ['_\+\i', '\<', '\l\u', '\u\u\ze\l', '\a\d', '\d\a']
-    call search(join(left_boundaries, '\|'), 'bce')
+function! s:select(object_type)
+
+    let left_boundary = ['_\+\i', '\<', '\l\u', '\u\u\ze\l', '\a\d', '\d\a']
+
+    if (a:object_type == 'a')
+        let right_boundary = ['_', '\l\u', '\u\u\l', '\a\d', '\d\a', '\i\>']
+    endif
+
+    if (a:object_type == 'i')
+        let right_boundary = ['\i_', '\l\u', '\u\u\l', '\a\d', '\d\a', '\i\>']
+    endif
+
+    call search(join(left_boundary, '\|'), 'bce')
     let start_position = getpos('.')
 
     call search('\>', 'c')
     let word_end = getpos('.')
     call setpos('.', start_position)
 
-    call search(a:right_boundary, 'c')
+    call search(join(right_boundary, '\|'), 'c')
     for _ in range(v:count1 - 1)
         if getpos('.') != word_end
-            call search(a:right_boundary)
+            call search(join(right_boundary, '\|'))
         endif
     endfor
     let end_position = getpos('.')
@@ -19,9 +29,7 @@ function! s:select(object_type, right_boundary)
 endfunction
 
 function! s:select_a()
-    let right_boundaries = ['_', '\l\u', '\u\u\l', '\a\d', '\d\a', '\i\>']
-    let right_boundary = join(right_boundaries, '\|')
-    let [type, start_position, end_position] = s:select('a', right_boundary)
+    let [type, start_position, end_position] = s:select('a')
     let [_, start_line, start_column, _] = start_position
 
     call search('\i\>', 'c')
@@ -46,8 +54,7 @@ function! s:select_a()
 endfunction
 
 function! s:select_i()
-    let right_boundaries = ['\i_', '\l\u', '\u\u\l', '\a\d', '\d\a', '\i\>']
-    return s:select('i', join(right_boundaries, '\|'))
+    return s:select('i')
 endfunction
 
 function! textobj#variable_segment#select_i() abort
