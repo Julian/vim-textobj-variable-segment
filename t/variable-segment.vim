@@ -404,4 +404,13 @@ describe 'av'
         normal dav
         Expect getline(1) == 'foo bazQuux'
     end
+    it 'selects leading small camels and swaps case even with tildeop'
+        set tildeop  " Vim default is notildeop
+        put! = 'fooBarQuux'
+        normal! 0
+        normal dav
+        Expect getline(1) == 'barQuux'
+        Expect &tildeop == 1
+        set notildeop
+    end
 end
