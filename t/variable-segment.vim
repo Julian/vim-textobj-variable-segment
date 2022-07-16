@@ -205,6 +205,16 @@ describe 'iv'
         normal civone
         Expect getline(1) == 'one another'
     end
+
+    it 'respects &iskeyword'
+        let original = &iskeyword 
+        set iskeyword=a-z,_,'
+        put! = 'bag_of_spam'' stuff'
+        normal! 9|
+        normal civeggs_n'
+        Expect getline(1) == "bag_of_eggs_n' stuff"
+        let &iskeyword = original
+    end
 end
 
 
@@ -404,6 +414,7 @@ describe 'av'
         normal dav
         Expect getline(1) == 'foo bazQuux'
     end
+
     it 'selects leading small camels and swaps case even with tildeop'
         set tildeop  " Vim default is notildeop
         put! = 'fooBarQuux'
@@ -412,5 +423,15 @@ describe 'av'
         Expect getline(1) == 'barQuux'
         Expect &tildeop == 1
         set notildeop
+    end
+
+    it 'respects &iskeyword'
+        let original = &iskeyword 
+        set iskeyword=a-z,_,'
+        put! = 'bag_of_spam'' stuff'
+        normal! 9|
+        normal dav
+        Expect getline(1) == "bag_of stuff"
+        let &iskeyword = original
     end
 end
