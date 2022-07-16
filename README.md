@@ -18,11 +18,9 @@ E.g.:
     eggsAn|dCheese  -> dav -> eggsCheese
     _privat|e_thing -> dav -> _thing
 
-
 It will also preserve case for small camels when initial segments are deleted
 (with `av`):
 
     _g|etJiggyYo   -> dav -> _jiggyYo
-
 
 Requires [vim-textobj-user](https://github.com/kana/vim-textobj-user).

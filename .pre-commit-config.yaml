@@ -1,0 +1,15 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
+    hooks:
+    -   id: check-json
+    -   id: check-yaml
+    -   id: check-vcs-permalinks
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+
+- repo: https://github.com/markdownlint/markdownlint
+  rev: v0.11.0
+  hooks:
+  - id: markdownlint
+    args: ["-r", "~MD013", "-r", "~MD046"]

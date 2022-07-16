@@ -207,7 +207,7 @@ describe 'iv'
     end
 
     it 'respects &iskeyword'
-        let original = &iskeyword 
+        let original = &iskeyword
         set iskeyword=a-z,_,'
         put! = 'bag_of_spam'' stuff'
         normal! 9|
@@ -426,7 +426,7 @@ describe 'av'
     end
 
     it 'respects &iskeyword'
-        let original = &iskeyword 
+        let original = &iskeyword
         set iskeyword=a-z,_,'
         put! = 'bag_of_spam'' stuff'
         normal! 9|
