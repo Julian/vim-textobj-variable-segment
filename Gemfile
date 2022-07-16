@@ -1,3 +1,4 @@
 source 'https://rubygems.org'
 
-gem 'vim-flavor', '~> 1.1'
+gem 'vim-flavor', '~> 4.0'
+gem 'rake', '~> 13.0'
