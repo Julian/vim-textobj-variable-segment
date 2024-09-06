@@ -1,8 +1,85 @@
+" Given three positions, return the position closest to the first one.
+function! s:closest_position(main, a, b)
+    let a_distance = mapnew(a:main, {k,v->abs(v-a:a[k])})
+    let b_distance = mapnew(a:main, {k,v->abs(v-a:b[k])})
+    if a_distance[1] < b_distance[1]
+        return a:a
+    endif
+    if a_distance[1] > b_distance[1]
+        return a:b
+    endif
+    if a_distance[2] < b_distance[2]
+        return a:a
+    endif
+    if a_distance[2] > b_distance[2]
+        return a:b
+    endif
+    " Distances are the same, return either one
+    return a:a
+endfunction!
+
 function! s:select(object_type, right_boundary)
     let left_boundaries = ['_\+\k', '\<', '\l\u', '\u\u\ze\l', '\a\d', '\d\a']
-    call search(join(left_boundaries, '\|'), 'bce')
-    let start_position = getpos('.')
 
+    " Gather all possible matches
+    let cursor_position = getpos('.')
+    let all_positions = []
+    for boundary in left_boundaries
+        " search() moves the cursor, so we need to reset the cursor's position
+        " before each search
+        call setpos('.', cursor_position)
+        if search(boundary, 'bce') > 0
+            call add(all_positions, getpos('.'))
+        endif
+    endfor
+
+    " Try to find a good match on the same line and on the left of the cursor
+    let start_position = v:null
+    let potential_matches = filter(copy(all_positions),
+        \ {v -> v[1] == cursor_position[1] && v[2] <= cursor_position[2]})
+    if len(potential_matches) > 0
+        let start_position = reduce(potential_matches,
+            \ {a, b -> s:closest_position(cursor_position, a, b)})
+    endif
+
+    if type(start_position) == type(v:null)
+        " No match found yet, try on the same line but on the right of the
+        " cursor
+        let potential_matches = filter(copy(all_positions),
+            \ {v -> v[1] == cursor_position[1] && v[2] > cursor_position[2]})
+        if len(potential_matches) > 0
+            let start_position = reduce(potential_matches,
+                \ {a, b -> s:closest_position(cursor_position, a, b)})
+        endif
+    endif
+
+    if type(start_position) == type(v:null)
+        " No match found yet, try to find one on lines above the cursor
+        let potential_matches = filter(copy(all_positions),
+            \ {v -> v[1] < cursor_position[1]})
+        if len(potential_matches) > 0
+            let start_position = reduce(potential_matches,
+                \ {a, b -> s:closest_position(cursor_position, a, b)})
+        endif
+    endif
+
+    if type(start_position) == type(v:null)
+        " No match found yet, try to find one on below after the cursor
+        let potential_matches = filter(copy(all_positions),
+            \ {v -> v[1] > cursor_position[1]})
+        if len(potential_matches) > 0
+            let start_position = reduce(potential_matches,
+                \ {a, b -> s:closest_position(cursor_position, a, b)})
+        endif
+    endif
+
+    if type(start_position) == type(v:null)
+        " The buffer must not contain any words - fall back to the cursor's
+        " position
+        let start_position = cursor_position
+    endif
+
+    call setpos('.', start_position)
     call search('\>', 'c')
     let word_end = getpos('.')
     call setpos('.', start_position)
