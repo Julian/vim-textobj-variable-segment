@@ -1,4 +1,4 @@
-vim-textobj-variable-segment.txt
+*vim-textobj-variable-segment.txt*  A text object for variable segments
 
 ================================================================================
 CONTENTS                                   *vim-textobj-variable-segment-contents*
