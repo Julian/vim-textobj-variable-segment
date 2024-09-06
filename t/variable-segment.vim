@@ -166,15 +166,15 @@ describe 'iv'
 
     it 'selects segments after single letter snake case sections'
         put! = 'a_thing_I_like'
-        normal! 2|
+        normal! 3|
         normal civtest
         Expect getline(1) == 'a_test_I_like'
     end
 
     it 'selects segments after single letter camel sections'
         put! = 'aThingILike'
-        normal! 1|
-        normal civtest
+        normal! 2|
+        normal civTest
         Expect getline(1) == 'aTestILike'
     end
 
